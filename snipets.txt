@@ -1,0 +1,34 @@
+    X_all = pd.read_csv("reuters/docs.csv", header=None)
+    y_all = pd.read_csv("reuters/labels.csv", header=None)
+    X_all = X_all.values.tolist()
+    X_all = [x[0] for x in X_all]
+    lens_word = [len(nltk.word_tokenize(x)) for x in tqdm(X_all)]
+    lens_word = pd.Series(lens_word)
+    min_len_word = lens_word.min()
+    max_len_word = lens_word.max()
+    mean_len_word = lens_word.mean()
+    median_len_word = lens_word.median()
+    std_len_word = lens_word.std()
+    print("*****Info @ Doc Level*****")
+    print(f"Min length (Words) : {min_len_word}")
+    print(f"Max length (Words) : {max_len_word}")
+    print(f"Avg length (Words) : {mean_len_word}")
+    print(f"Median length (Words) : {median_len_word}")
+    print(f"Std length (Words) : {std_len_word}")
+    lens_sent = [len(nltk.sent_tokenize(x)) for x in tqdm(X_all)]
+    lens_sent = pd.Series(lens_sent)
+    min_len_sent = lens_sent.min()
+    max_len_sent = lens_sent.max()
+    mean_len_sent = lens_sent.mean()
+    median_len_sent = lens_sent.median()
+    std_len_sent = lens_sent.std()
+    print(f"Min length (Sents) : {min_len_sent}")
+    print(f"Max length (Sents) : {max_len_sent}")
+    print(f"Avg length (Sents) : {mean_len_sent}")
+    print(f"Median length (Sents) : {median_len_sent}")
+    print(f"Std length (Sents) : {std_len_sent}")
+    sents = [nltk.sent_tokenize(x) for x in tqdm(X_all)]
+    flat_sents = [x for y in sents for x in y]
+    lens_word_sent = [len(nltk.word_tokenize(s)) for s in tqdm(flat_sents)]
+    lens_word_sent = pd.Series(lens_word_sent)
+    # TODO  show info @ sent level
